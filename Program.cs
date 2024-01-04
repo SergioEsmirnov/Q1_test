@@ -3,15 +3,23 @@ using System.Xml.XPath;
 
 Console.Write("Введите количество элементов массива:\t");
 int elementsCount = Convert.ToInt32(Console.ReadLine());
-string[] array = new string[elementsCount];
-for (int i=0; i < elementsCount; i++)
-{
-    Console.Write($"\nВведите элемент массива с индексовм {i}:\t");
-    array[i] = Console.ReadLine();
-}
-//Console.WriteLine($"\nМассив: [{String.Join("\t", array)}]");
 
-int newArraySize = countNewElements(array);
+string[] array = getArray(elementsCount);//создаем массив с помощью метода
+string[] getArray(int size)
+{
+    string[] array = new string[size];
+    for (int i=0; i < size; i++)
+        {
+        Console.Write($"\nВведите элемент массива с индексовм {i}:\t");
+        array[i] = Console.ReadLine();
+        }
+    return array;
+}
+printArray(array);
+
+
+int newArraySize = countNewElements(array); // считаем в массиве 
+// количество элементов длиной не более 3 символов с помощью метода
 
 int countNewElements(string[] array)
 {
@@ -27,19 +35,23 @@ int countNewElements(string[] array)
 }
 
 
-string[] newArray = new string[newArraySize];
-int j = 0;
-for (int i=0; i < elementsCount; i++)
+string[] newArray = resultArray(array, newArraySize);
+string[] resultArray(string[] array, int size)
 {
-        if(array[i].Length<=3)
+        string[] newArray = new string[size];
+    int j = 0;
+    for (int i=0; i < array.Length; i++)
         {
-            newArray[j] = array[i];
-            j++;
-        }    
+            if(array[i].Length<=3)
+                {
+                    newArray[j] = array[i];
+                    j++;
+                }    
+        }
+    return newArray;
 }
 
 
-printArray(array);
 static void printArray (string[] array)
 {
     Console.WriteLine($"\n[{String.Join("\t", array)}]");
